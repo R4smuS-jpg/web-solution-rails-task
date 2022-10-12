@@ -2,6 +2,8 @@ class Song < ApplicationRecord
   belongs_to :artist
   has_many :downloads
 
+  scope :artist_is, ->(artist) { where('artist_id = ? ', artist.id) }
+
   def self.top(days, count)
     time_range = (days.days.ago..Time.now)
 
