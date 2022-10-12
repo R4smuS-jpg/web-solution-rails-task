@@ -40,6 +40,6 @@ ActiveRecord::Schema.define(version: 2022_10_12_101638) do
     t.index ["title"], name: "index_songs_on_title"
   end
 
-  foreign_key "songs", "artists"
-  foreign_key "downloads", "songs"
+  add foreign_key "songs", "artists"
+  add foreign_key "downloads", "songs"
 end
