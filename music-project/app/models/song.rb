@@ -3,7 +3,7 @@ class Song < ApplicationRecord
   has_many :downloads
 
   def self.top(days, count)
-    time_range = (7.days.ago..Time.now)
+    time_range = (days.days.ago..Time.now)
 
     Song.joins(:downloads)
         .distinct
