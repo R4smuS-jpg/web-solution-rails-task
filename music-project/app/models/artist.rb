@@ -9,7 +9,14 @@ class Artist < ApplicationRecord
     Song.artist_is(self).order(downloads_count: :desc)
   end
 
-  def self.top(letter, count)
-    Artist.where('substr(name, 1, 1) = ?', letter).limit(count)
+  def self.top(letter, count, days)
+    time_range = (days.days.ago..Time.now)
+
+    Artist.joins(songs: :downloads)
+          .where('downloads.created_at' => time_range)
+          .order(downloads_count: :desc)
+          .distinct
+          .where('substr(name, 1, 1) = ?', letter)
+          .limit(count)
   end
 end
